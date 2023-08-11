@@ -1,0 +1,46 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+align-items: center;
+background-color: black;
+border: solid 1px rgb(128, 126, 126);
+}
+
+.logo{
+  padding: 1rem;
+  .logo-img{
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.currency{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .button-currency{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: black;
+    color: rgb(245, 244, 241);
+    border: none;
+    cursor: pointer;
+  }
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.card{
+  margin: 1rem;
+  width: 11rem;
+  height: 50px;
+  border: solid 1px rgb(87, 86, 86);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}

@@ -1,0 +1,229 @@
+.home {
+  color: white;
+
+  .title {
+    padding-inline-start: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .body {
+    .exchanger {
+      border: solid 1px rgb(128, 126, 126);
+      background-color: black;
+      padding: 0px 1rem;
+      padding-top: 1rem;
+      padding-bottom: 2rem;
+      .amount {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+
+        .amount-number {
+          width: 20rem;
+        }
+        .from-to {
+          width: 50%;
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          align-items: center;
+          .amount-from {
+            width: 15rem;
+          }
+
+          .amount-icon {
+            .icon {
+              width: 8rem;
+              height: 4rem;
+            }
+          }
+
+          .amount-to {
+            width: 15rem;
+          }
+        }
+      }
+      .convert {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+        .convert-but {
+          width: 50%;
+          .submit {
+            width: 100%;
+            background-color: #2d1791;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+          }
+
+          .submit:hover {
+            background-color: #45a049;
+          }
+        }
+      }
+    }
+    .details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      .exchange-rate {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        .card {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          height: 3rem;
+          width: 20rem;
+          border: solid 1px rgb(128, 126, 126);
+          background: black;
+          color: white;
+        }
+      }
+      .exchanger-result {
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .result {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border: solid 1px rgb(128, 126, 126);
+        width: 100%;
+        height: 5rem;
+      }
+      .more-details {
+        .details-but {
+          .submit {
+            width: 15rem;
+            background-color: #2d1791;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+          }
+
+          .submit:hover {
+            background-color: #45a049;
+          }
+        }
+      }
+    }
+
+    .historical-rates {
+      margin-top: 1rem;
+      width: 100%;
+      background-color: black;
+      border: solid 1px rgb(128, 126, 126);
+    }
+  }
+}
+
+input[type="number"],
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+.submit {
+  width: 100%;
+  background-color: #2d1791;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 900px) and (min-width: 631px) {
+  .amount-number {
+    width: 12rem !important;
+  }
+  .amount-from {
+    width: 6rem !important;
+  }
+  .amount-icon {
+    display: flex;
+    justify-content: center;
+    .icon {
+      max-width: 4rem !important;
+      height: 2rem !important;
+    }
+  }
+  .amount-to {
+    width: 6rem !important;
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  .amount-number {
+    width: 100% !important;
+  }
+  .exchanger-result {
+    width: 100% !important;
+  }
+  .from-to {
+    width: 100% !important;
+
+    .amount-from {
+      width: 100% !important;
+    }
+
+    .amount-icon {
+      width: 100% !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .icon {
+        max-width: 8rem;
+        height: 4rem;
+      }
+    }
+
+    .amount-to {
+      width: 100% !important;
+    }
+  }
+  .convert-but {
+    width: 100% !important;
+  }
+  .submit {
+    width: 100% !important;
+  }
+  .exchanger-result {
+    width: 100% !important;
+  }
+  .exchange-rate {
+    width: 100% !important;
+    .card {
+      margin-bottom: 1rem;
+      width: 100% !important;
+    }
+  }
+}

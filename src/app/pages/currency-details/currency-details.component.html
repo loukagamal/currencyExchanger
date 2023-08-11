@@ -1,0 +1,62 @@
+<div class="home">
+  <div class="title">
+    <div class="currency-details">
+      <h1>{{currencyDetails}}</h1>
+    </div>
+    <div class="home-but">
+      <button class="submit" routerLink="../../../../home">Back to Home</button>
+    </div>
+  </div>
+  <div class="body">
+
+    <form [formGroup]="form" class="exchanger">
+      <div class="amount">
+        <div class="amount-number">
+
+          <label for="fname">Amount</label>
+          <input type="number" id="amount" name="amount" formControlName="amount" placeholder="0">
+
+        </div>
+        <div class="from-to">
+          <div class="amount-from">
+            <label for="symbolFrom">From</label>
+            <select id="symbolFrom" name="symbolFrom" formControlName="from" (ngModelChange)="symbolFromChange($event)">
+              <option [value]="symbol.name" *ngFor="let symbol of currencySymbols">{{symbol.name}}</option>
+            </select>
+          </div>
+          <div class="amount-icon">
+            <img class="icon" (click)="exchangerSymbol()" src="assets/clipart-arrow-left-right-256x256-802e.png" alt="">
+          </div>
+          <div class="amount-to">
+            <label for="symbolTO">to</label>
+            <select id="symbolTO" name="symbolTo" formControlName="to" (ngModelChange)="symbolToChange($event)">
+              <option [value]="symbol.name" *ngFor="let symbol of currencySymbols">{{symbol.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="convert">
+        <div class=""></div>
+        <div class="convert-but">
+          <button class="submit" (click)="convert()">convert</button>
+        </div>
+      </div>
+      <div class="details">
+        <div class="exchange-rate">
+          <div class="card">
+            <span *ngIf="rate"> 1.00 {{this.form.get('from')?.value}}= {{rate}} {{this.form.get('to')?.value}}</span>
+          </div>
+        </div>
+        <div class="exchanger-result">
+          <div class="result">
+            <span *ngIf="rate"> {{result}} {{this.form.get('to')?.value}}</span>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="historical-rates">
+      <p-chart type="line" [data]="basicData" [options]="basicOptions"></p-chart>
+    </div>
+  </div>
+</div>
