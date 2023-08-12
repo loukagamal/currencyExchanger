@@ -1,4 +1,4 @@
-export  interface Currency  {
-name:string,
-details:string
+export interface Currency {
+  name: string,
+  details: string
 }

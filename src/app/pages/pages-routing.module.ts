@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { CurrencyDetailsComponent } from './currency-details/currency-details.component';
 import { HomeComponent } from './home/home.component';
+import { config } from './config';
 
 const routes: Routes = [
   {
@@ -10,11 +11,15 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'home',
+        path: config.page.home,
         component:HomeComponent
       },
       {
-        path: 'currency-details/:from/to/:to',
+        path: `${config.page.currencyDetails}/:from/to/:to`,
+        component:CurrencyDetailsComponent
+      },
+      {
+        path: `${config.page.currencyDetails}/:from/to/:to/amount/:amount`,
         component:CurrencyDetailsComponent
       },
       {

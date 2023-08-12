@@ -13,8 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
 
   ],
-  exports:[    
-    HttpClientModule,
-  ]
+  // exports:[    
+  //   HttpClientModule,
+  // ]
 })
 export class CoreModule { }

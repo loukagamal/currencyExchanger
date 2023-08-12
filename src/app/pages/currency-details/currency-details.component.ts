@@ -15,6 +15,7 @@ export class CurrencyDetailsComponent implements OnInit {
   result: number = 0;
   rate: string = '';
   from: string = '';
+  amount:number=1;
   to: string = '';
   form: FormGroup = this._FormBuilder.group({
     from: [{ value: this.from, disabled: true }, , Validators.required],
@@ -47,7 +48,7 @@ export class CurrencyDetailsComponent implements OnInit {
     { id: 11, name: 'November', value: 0 },
     { id: 12, name: 'December', value: 0 },
   ];
-
+  searchDate: string[] = [];
   constructor(
     private currencyService: CurrencyServiceService,
     private _FormBuilder: FormBuilder,
@@ -57,7 +58,7 @@ export class CurrencyDetailsComponent implements OnInit {
   ) {
     this.getSymbols();
     this.router.events.subscribe((event: any) => {
-      event.NavigationStart ? this.createForm() : '';
+      event.NavigationStart ? this.patchForm() : '';
     });
   }
 
@@ -67,7 +68,6 @@ export class CurrencyDetailsComponent implements OnInit {
     this.spinnerSVR.hide();
   }
   createForm(): void {
-    this.convert();
   }
   startDate: string = '';
   endDate: string = '';
@@ -82,8 +82,9 @@ export class CurrencyDetailsComponent implements OnInit {
     this.endDate = end_date;
   }
   convert() {
+    this.monthlySort=[]
+    this.monthlyDate=[]
     this.spinnerSVR.show();
-
     this.form.markAllAsTouched();
     if (this.form.valid) {
       this.currencyService
@@ -97,9 +98,8 @@ export class CurrencyDetailsComponent implements OnInit {
           this.rate = res?.info?.rate;
         });
     }
+    this.getRates()
     this.spinnerSVR.hide();
-
-    this.getRates();
   }
   getSymbols() {
     this.currencyService.getSymbols().subscribe((res) => {
@@ -123,12 +123,9 @@ export class CurrencyDetailsComponent implements OnInit {
 
   getDetails(name: string) {
     let detailsCurrency: any = this.currencySymbols?.find(
-      (item) => item.name == name
-    );
-    this.currencyDetails = detailsCurrency?.details
-      ? detailsCurrency?.details
-      : '';
-  }
+      (item) => item.name == name);
+    this.currencyDetails = detailsCurrency?.details? detailsCurrency?.details: '';
+    }
   exchangerSymbol() {
     let from = this.form.get('from')?.value;
     let to = this.form.get('to')?.value;
@@ -138,11 +135,13 @@ export class CurrencyDetailsComponent implements OnInit {
   patchForm() {
     const from = this.route.snapshot.paramMap.get('from');
     const to = this.route.snapshot.paramMap.get('to');
+    const amount = this.route.snapshot.paramMap.get('amount');
     this.from = from ? from : 'EUR';
     this.to = to ? to : 'USD';
+    this.amount = amount ? parseInt(amount) : 1;
     this.form?.get('from')?.patchValue(this.from);
     this.form?.get('to')?.patchValue(this.to);
-    console.log('teeee');
+    this.form?.get('amount')?.patchValue(this.amount);
   }
   getRates() {
     this.spinnerSVR.show();
@@ -161,24 +160,31 @@ export class CurrencyDetailsComponent implements OnInit {
     var month = String(date.getMonth() + 1).padStart(2, '0');
     var day = String(date.getDate()).padStart(2, '0');
     let searchDate = `${year}-${month}-${day}`;
+    this.searchDate.push(searchDate);
+    this.sortMonthlyName(monthNum);
+    if (i == 11) {
+      this.findreats();
+    }
+  }
 
+  findreats() {
     this.spinnerSVR.show();
-    this.observable$.push(
-      this.currencyService.getRates(searchDate, this.from, this.to)
-    );
-    const observable = forkJoin(this.observable$);
-    observable.subscribe({
-      error(err) {},
-      next: (value) =>
-        (this.monthlyDate[i] = {
-          value: this.currencyService.convertObjToString(value[i]?.rates),
-        }),
+    const calls: Array<Observable<any>> = [];
+    this.searchDate.forEach((element) => {
+      calls.push(this.currencyService.getRates(element, this.to, this.from));
+    });
+    const Observable = forkJoin(calls).subscribe({
+      next: (value: any[]) => {
+        this.monthlyDate = value.map((item) =>
+          this.currencyService.convertObjToString(item.rates)
+        );
+      },
       complete: () => {
-        i == 11 ? this.drweChart() : '';
+        this.drawChart();
+        this.spinnerSVR.hide();
       },
     });
 
-    this.sortMonthlyName(monthNum);
   }
 
   sortMonthlyName(monthNum: string) {
@@ -189,7 +195,7 @@ export class CurrencyDetailsComponent implements OnInit {
     this.monthlySort.push(monthlyName);
   }
 
-  drweChart() {
+  drawChart() {
     const observable = forkJoin(this.observable$);
 
     this.monthlyDate = this.monthlyDate.sort(function (a, b) {
@@ -206,7 +212,7 @@ export class CurrencyDetailsComponent implements OnInit {
           label: `${this.from}/${this.to}`,
           backgroundColor: documentStyle.getPropertyValue('--blue-500'),
           borderColor: documentStyle.getPropertyValue('--blue-500'),
-          data: this.monthlyDate.map((item) => item.value).reverse(),
+          data: this.monthlyDate.reverse(),
         },
       ],
     };

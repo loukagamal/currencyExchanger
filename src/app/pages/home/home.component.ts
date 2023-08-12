@@ -22,21 +22,17 @@ export class HomeComponent implements OnInit {
   result = 0;
   rate: string = '';
   rates :Currency[]=[]
-  form!: FormGroup;
-  animation: boolean=false;
+  form: FormGroup= this._FormBuilder.group({
+    from: ['EUR', Validators.required],
+    to: ['USD', Validators.required],
+    amount: [1, Validators.required],
+  });
   latestSymbols='USD,EUR,EGP,KWD,BHD,OMR,GBP,CHF,AED'
   ngOnInit(): void {
     this.getSymbols();
-    this.createForm();
     this.convert()
   }
-  createForm(): void {
-    this.form = this._FormBuilder.group({
-      from: ['EUR', Validators.required],
-      to: ['USD', Validators.required],
-      amount: [1, Validators.required],
-    });
-  }
+
   convert() {
     this.spinnerSVR.show();
     this.form.markAllAsTouched();
@@ -65,11 +61,9 @@ export class HomeComponent implements OnInit {
       );
   }
   details() {
-    this.router.navigate([
-      `/dashboard/currency-details/${this.form.get('from')?.value}/to/${
-        this.form.get('to')?.value
-      }`,
-    ]);
+
+    this.router.navigate([`/dashboard/currency-details/${this.form.get('from')?.value}/to/${this.form.get('to')?.value}/amount/${this.form.get('amount')?.value}`]);
+    
   }
   symbolToChange(){
     this.rate=''
