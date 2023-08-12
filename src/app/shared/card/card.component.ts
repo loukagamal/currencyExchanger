@@ -7,6 +7,6 @@ import { Currency } from 'src/app/core/models/currency.model';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent {
-@Input() rate!:Currency;
-@Input() from !:string;
+@Input() rate:Currency={details:'',name:''};
+@Input() from :string='';
 }

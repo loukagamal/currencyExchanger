@@ -1,2 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/primeicons/primeicons.css";
+
+
+body{
+  padding: 0px !important;
+  height: 100% !important;
+  background-image: url('assets/backgrond.jpg') !important; 
+  background-position: center;
+  background-size: cover;
+}
