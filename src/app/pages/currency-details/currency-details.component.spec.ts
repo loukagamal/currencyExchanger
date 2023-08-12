@@ -41,3 +41,22 @@ describe('myService', () => {
    });
 
 });
+
+
+describe('CurrencyDetailsComponent', () => {
+  let component: CurrencyDetailsComponent;
+  let fixture: ComponentFixture<CurrencyDetailsComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [CurrencyDetailsComponent]
+    });
+    fixture = TestBed.createComponent(CurrencyDetailsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component.getLastDayOfThatMonth(2023,8,1)).toEqual('2023-07-31');
+  });
+});

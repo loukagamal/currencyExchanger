@@ -154,6 +154,8 @@ export class CurrencyDetailsComponent implements OnInit {
   }
 
   getLastDayOfThatMonth(yyyy: number, mm: number, i: number) {
+    console.log(yyyy,mm,i);
+    
     var date = new Date(yyyy, mm - 1, 0);
     var year = date.getFullYear();
     var monthNum = String(date.getMonth() + 1);
@@ -165,6 +167,9 @@ export class CurrencyDetailsComponent implements OnInit {
     if (i == 11) {
       this.findreats();
     }
+    console.log(searchDate);
+
+    return searchDate
   }
 
   findreats() {
